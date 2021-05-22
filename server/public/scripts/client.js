@@ -9,6 +9,8 @@ function handleReady() {
     $('#subtract').on('click',addSubtract);
     $('#divide').on('click',addDivision);
     $('#multiply').on('click',addMultiplication);
+    $('#clear').on('click',clear);
+
 
     
 
@@ -17,6 +19,12 @@ function handleReady() {
 }
 
 let modifier = '';
+
+function clear() {
+    $('#num1').val('');
+    $('#num2').val('');
+    modifier = '';
+};
 
 // modifier value that changes if modifier button is clicked
 
@@ -57,9 +65,6 @@ function addProblem() {
         console.log(response);
         getEquations();
     });
-    $('#num1').val('');
-    $('#num2').val('');
-    modifier = '';
 
 }
 
@@ -71,11 +76,18 @@ function getEquations() {
         console.log(response)
         //empty DOM
         $('#equationDataList').empty();
-
+        if (response[response.length-1].solution === undefined){
+            $('#solution').text(`0`);
+        } else {
+            $('#solution').text(response[response.length-1].solution);
+            console.log(response[response.length-1].solution);
+        }
+        
         for(let equation of response) {
             $('#equationDataList').append(`
             <li>${equation.num1} ${equation.modifier} ${equation.num2} = ${equation.solution}</li>
             `)
         }
     })
+
 }
