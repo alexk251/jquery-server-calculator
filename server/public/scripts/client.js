@@ -11,7 +11,7 @@ function handleReady() {
     $('#multiply').on('click',addMultiplication);
     $('#clear').on('click',clear);
 
-
+    $('#equationDataList li:nth-child(odd)').addClass('alternate');
     
 
     //get equations
@@ -87,7 +87,9 @@ function getEquations() {
             $('#equationDataList').append(`
             <li>${equation.num1} ${equation.modifier} ${equation.num2} = ${equation.solution}</li>
             `)
+            $('#equationDataList li:nth-child(odd)').addClass('alternate');
         }
     })
+    
 
 }
